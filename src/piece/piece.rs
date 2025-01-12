@@ -1,8 +1,8 @@
 use std::fmt::Error;
 use std::fmt::Formatter;
-
 use std::fmt::Display;
 
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Player {
     White,
     Black,
@@ -17,6 +17,7 @@ pub struct Piece {
     _image_path: &'static str,
     _decimal: i32,
     _unicode: &'static str,
+    _color: Player,
 }
 
 impl Piece {
@@ -27,7 +28,8 @@ impl Piece {
         name: &'static str,
         image_path: &'static str,
         decimal: i32,
-        unicode: &'static str
+        unicode: &'static str,
+        color: Player
     ) -> Self {
         Self {
             _id: id,
@@ -37,6 +39,7 @@ impl Piece {
             _image_path: image_path,
             _decimal: decimal,
             _unicode: unicode,
+            _color: color
         }
     }
 }

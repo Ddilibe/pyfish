@@ -29,6 +29,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_white_pawn(),
+            Player::White,
         );
         let white_knight = Piece::new(
             1,
@@ -38,6 +39,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_white_knight(),
+            Player::White,
         );
         let white_bishop = Piece::new(
             1,
@@ -47,6 +49,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_white_bishop(),
+            Player::White,
         );
         let white_rook = Piece::new(
             1,
@@ -56,6 +59,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_white_rook(),
+            Player::White,
         );
         let white_king = Piece::new(
             1,
@@ -65,6 +69,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_white_king(),
+            Player::White,
         );
         let white_queen = Piece::new(
             1,
@@ -74,6 +79,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_white_queen(),
+            Player::White,
         );
         let black_pawn = Piece::new(
             1,
@@ -83,6 +89,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_black_pawn(),
+            Player::Black,
         );
         let black_knight = Piece::new(
             1,
@@ -92,6 +99,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_black_knight(),
+            Player::Black,
         );
         let black_bishop = Piece::new(
             1,
@@ -101,6 +109,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_black_bishop(),
+            Player::Black,
         );
         let black_rook = Piece::new(
             1,
@@ -110,6 +119,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_black_rook(),
+            Player::Black,
         );
         let black_queen = Piece::new(
             1,
@@ -119,6 +129,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_black_queen(),
+            Player::Black,
         );
         let black_king = Piece::new(
             1,
@@ -128,6 +139,7 @@ impl BoardGeneration {
             "running",
             1,
             PieceUnicode::get_black_king(),
+            Player::Black,
         );
         self._board = [
             [
@@ -158,32 +170,62 @@ impl BoardGeneration {
             ],
         ]
     }
-    pub fn game_cycle(&mut self){
+
+    pub fn game_cycle(&mut self) {
         let mut running = true;
-        
+
         while running {
             println!("{}", self);
+
             let mut input = String::new();
-            io::stdin().read_line(&mut input).expect("Failed to read line");
-            input = input.trim().to_string();
-            match Some(input) {
-                Some(value) => {
-                    match self.select_piece(value) {
+            io::stdin()
+                .read_line(&mut input)
+                .expect("Failed to read line");
+            input = input.trim().to_string().to_uppercase();
+
+            let words: Vec<&str> = input.split_whitespace().collect();
+            let all_two_chars = words.iter().all(|word| word.len() == 2);
+
+            if input == "QUIT" {
+                running = false;
+                continue;
+            }
+
+            if all_two_chars && words.len() == 3 && words[1] == "TO" {
+                if self.all_pieces().contains(&words[0].to_string())
+                    && self.all_pieces().contains(&words[2].to_string())
+                {
+                    let piece_one = self.select_piece(words[0].to_string());
+                    let piece_two = self.select_piece(words[2].to_string());
+                    self.get_single(piece_one);
+                    self.get_single(piece_two);
+                }
+            } else if words.len() == 1 {
+                if self.all_pieces().contains(&words[0].to_string()) {
+                    match self.select_piece(words[0].to_string()) {
                         Some(val) => println!("The piece you selected is {}\n", val),
-                        None => println!("You selected an empty space")
+                        None => println!("You selected an empty space"),
                     }
                 }
-                None => running = false
+            } else {
+                println!("Invalid input: All words must have exactly two characters.");
             }
         }
         self.close_program();
+    }
+
+    fn get_single(&mut self, piece: Option<Piece>) {
+        match piece {
+            Some(val) => println!("The piece you selected is {}\n", val),
+            None => println!("You selected an empty space"),
+        }
     }
 
     pub fn close_program(&self) {
         println!("The Chess program have closed");
     }
 
-    fn get_hashmap(&self) -> HashMap<char, i32>{
+    fn get_hashmap(&self) -> HashMap<char, i32> {
         let numbers: Vec<i32> = vec![1, 2, 3, 4, 5, 6, 7, 8];
         let alpha: Vec<char> = vec!['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
         let mut map = HashMap::new();
@@ -193,15 +235,31 @@ impl BoardGeneration {
         return map;
     }
 
-    fn select_piece(&mut self, value: String) -> Option<Piece>{
+    fn all_pieces(&self) -> Vec<String> {
+        let mut result = Vec::new();
+
+        for row in 1..=8 {
+            for col in 'A'..='H' {
+                result.push(format!("{}{}", row, col));
+            }
+        }
+
+        result
+    }
+
+    fn select_piece(&mut self, value: String) -> Option<Piece> {
         if value.len() == 2 {
             let sub_strings: Vec<char> = value.chars().collect();
             let a: usize = sub_strings[0].to_digit(10).unwrap_or_default() as usize;
             let b: usize = self.get_hashmap().get(&sub_strings[1]).cloned().unwrap() as usize;
-            return self._board[a-1][b-1];
+            return self._board[a - 1][b - 1];
         }
         return None;
     }
+
+    // fn move(&mut self, piece_one: Option<Piece>, piece_two: Option<Piece>) {
+    //     if
+    // }
 }
 
 impl Display for BoardGeneration {
@@ -221,7 +279,6 @@ impl Display for BoardGeneration {
         Ok(())
     }
 }
-
 
 // King: ♔ (U+2654)
 // Queen: ♕ (U+2655)
