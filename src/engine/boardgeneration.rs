@@ -195,17 +195,12 @@ impl BoardGeneration {
                 if self.all_pieces().contains(&words[0].to_string())
                     && self.all_pieces().contains(&words[2].to_string())
                 {
-                    let piece_one = self.select_piece(words[0].to_string());
-                    let piece_two = self.select_piece(words[2].to_string());
-                    self.get_single(piece_one);
-                    self.get_single(piece_two);
+                    self.move_piece(words[0].to_string(), words[2].to_string());
                 }
             } else if words.len() == 1 {
                 if self.all_pieces().contains(&words[0].to_string()) {
-                    match self.select_piece(words[0].to_string()) {
-                        Some(val) => println!("The piece you selected is {}\n", val),
-                        None => println!("You selected an empty space"),
-                    }
+                    let q = self.select_piece(words[0].to_string());
+                    self.get_single(q);
                 }
             } else {
                 println!("Invalid input: All words must have exactly two characters.");
@@ -257,9 +252,22 @@ impl BoardGeneration {
         return None;
     }
 
-    // fn move(&mut self, piece_one: Option<Piece>, piece_two: Option<Piece>) {
-    //     if
-    // }
+    fn move_piece(&mut self, value1: String, value2: String) {
+        let sub_strings1: Vec<char> = value1.chars().collect();
+        let sub_strings2: Vec<char> = value2.chars().collect();
+        let a1: usize = sub_strings1[0].to_digit(10).unwrap_or_default() as usize;
+        let b1: usize = self.get_hashmap().get(&sub_strings1[1]).cloned().unwrap() as usize;
+        let a2: usize = sub_strings2[0].to_digit(10).unwrap_or_default() as usize;
+        let b2: usize = self.get_hashmap().get(&sub_strings2[1]).cloned().unwrap() as usize;
+        match self._board[a2 - 1][b2 - 1]{
+            Some(val) => {println!("There is a piece on that spot")},
+            None => {
+                let _piecea = self._board[a2 - 1][b2 - 1];
+                self._board[a2 - 1][b2 - 1] = self._board[a1 - 1][b1 - 1];
+                self._board[a1 - 1][b1 - 1] = _piecea;
+            }
+        }
+    }
 }
 
 impl Display for BoardGeneration {
