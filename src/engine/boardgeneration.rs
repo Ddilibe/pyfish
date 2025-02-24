@@ -1,11 +1,10 @@
-use crate::piece::piece::PieceUnicode;
-use crate::piece::piece::{Piece, Player};
+use crate::piece::piece::{Piece, Player, PieceUnicode};
+use std::cmp::Ordering;
+use std::fmt::{Error, Formatter, Display};
 use std::collections::HashMap;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::io;
-
-use std::fmt::Display;
+use std::process::Command;
+use std::thread::sleep;
+use std::{io, time};
 
 pub struct BoardGeneration {
     pub _board: [[Option<Piece>; 8]; 8],
@@ -16,7 +15,7 @@ impl BoardGeneration {
     pub fn new() -> Self {
         Self {
             _board: [[None; 8]; 8],
-            _current: Player::Black,
+            _current: Player::White,
         }
     }
 
@@ -205,6 +204,8 @@ impl BoardGeneration {
             } else {
                 println!("Invalid input: All words must have exactly two characters.");
             }
+            sleep(time::Duration::from_secs(2));
+            self.clear_screen();            
         }
         self.close_program();
     }
@@ -259,17 +260,41 @@ impl BoardGeneration {
         let b1: usize = self.get_hashmap().get(&sub_strings1[1]).cloned().unwrap() as usize;
         let a2: usize = sub_strings2[0].to_digit(10).unwrap_or_default() as usize;
         let b2: usize = self.get_hashmap().get(&sub_strings2[1]).cloned().unwrap() as usize;
-        match self._board[a2 - 1][b2 - 1]{
-            Some(val) => {println!("There is a piece on that spot")},
-            None => {
-                let _piecea = self._board[a2 - 1][b2 - 1];
-                self._board[a2 - 1][b2 - 1] = self._board[a1 - 1][b1 - 1];
-                self._board[a1 - 1][b1 - 1] = _piecea;
+        let val = match self._board[a1 -1][b1 - 1]{
+            Some(p) => p,
+            None => return
+        };
+        if match val._color.cmp(&self._current){Ordering::Equal => true, _ => false}{
+            match self._board[a2 - 1][b2 - 1]{
+                Some(_val) => {println!("There is a piece on that spot")},
+                None => {
+                    let _piecea = self._board[a2 - 1][b2 - 1];
+                    self._board[a2 - 1][b2 - 1] = self._board[a1 - 1][b1 - 1];
+                    self._board[a1 - 1][b1 - 1] = _piecea;
+                    if self._current == Player::Black {
+                        self._current = Player::White;
+                    } else {
+                        self._current = Player::Black;
+                    }
+                }
             }
+        } else {
+            println!("The correct play to play is the {} player", &self._current);
+        }
+    }
+
+    pub fn clear_screen(&self,) {
+        if cfg!(target_os="windows") {
+            Command::new("cls").status().unwrap();
+        } else {
+            Command::new("clear").status().unwrap();
         }
     }
 }
 
+/// This `impl Display for BoardGeneration` block is implementing the `Display` trait for the
+/// `BoardGeneration` struct. By doing this, instances of `BoardGeneration` can be formatted as a string
+/// when using the `println!` macro or any other formatting macros that require the `Display` trait.
 impl Display for BoardGeneration {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         println!("   A B C D E F G H ");

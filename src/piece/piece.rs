@@ -8,6 +8,16 @@ pub enum Player {
     Black,
 }
 
+impl Display for Player {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        if {*self == Player::Black}{
+            write!(f, "Black")
+        } else {
+            write!(f, "white")
+        }
+    }
+}
+
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Piece {
     _id: i64,
@@ -17,7 +27,7 @@ pub struct Piece {
     _image_path: &'static str,
     _decimal: i32,
     _unicode: &'static str,
-    _color: Player,
+    pub _color: Player,
 }
 
 impl Piece {
