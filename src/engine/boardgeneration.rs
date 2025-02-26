@@ -11,6 +11,7 @@ pub struct BoardGeneration {
     pub _current: Player,
 }
 
+#[allow(unused_doc_comments)]
 impl BoardGeneration {
     pub fn new() -> Self {
         Self {
@@ -19,6 +20,134 @@ impl BoardGeneration {
         }
     }
 
+    pub fn new_normal_chessboard(&mut self) {
+        let white_pawn = Piece::new(
+            1,
+            1,
+            0b1111111100000000,
+            "white pawn",
+            "running",
+            0x000000000000ff00,
+            PieceUnicode::get_white_pawn(),
+            Player::White,
+        );
+        let white_knight = Piece::new(
+            1,
+            1,
+            0b1000010,
+            "running",
+            "running",
+            0x0000000000000042,
+            PieceUnicode::get_white_knight(),
+            Player::White,
+        );
+        let white_bishop = Piece::new(
+            1,
+            1,
+            0b100100,
+            "running",
+            "running",
+            0x0000000000000024,
+            PieceUnicode::get_white_bishop(),
+            Player::White,
+        );
+        let white_rook = Piece::new(
+            1,
+            1,
+            0b10000001,
+            "running",
+            "running",
+            0x0000000000000081,
+            PieceUnicode::get_white_rook(),
+            Player::White,
+        );
+        let white_king = Piece::new(
+            1,
+            1,
+            0b1000,
+            "running",
+            "running",
+            0x0000000000000008,
+            PieceUnicode::get_white_king(),
+            Player::White,
+        );
+        let white_queen = Piece::new(
+            1,
+            1,
+            0b0000000000000000000000000000000000000000000000000000000000010000,
+            "running",
+            "running",
+            0x0000000000000010,
+            PieceUnicode::get_white_queen(),
+            Player::White,
+        );
+        let black_pawn = Piece::new(
+            1,
+            1,
+            0b11111111000000000000000000000000000000000000000000000000,
+            "running",
+            "running",
+            0x00ff000000000000,
+            PieceUnicode::get_black_pawn(),
+            Player::Black,
+        );
+        let black_knight = Piece::new(
+            1,
+            1,
+            0b100001000000000000000000000000000000000000000000000000000000000,
+            "running",
+            "running",
+            0x4200000000000000,
+            PieceUnicode::get_black_knight(),
+            Player::Black,
+        );
+        let black_bishop = Piece::new(
+            1,
+            1,
+            0b10010000000000000000000000000000000000000000000000000000000000,
+            "running",
+            "running",
+            0x2400000000000000,
+            PieceUnicode::get_black_bishop(),
+            Player::Black,
+        );
+        let black_rook = Piece::new(
+            1,
+            1,
+            0b1000000100000000000000000000000000000000000000000000000000000000,
+            "running",
+            "running",
+            0x8100000000000000,
+            PieceUnicode::get_black_rook(),
+            Player::Black,
+        );
+        let black_queen = Piece::new(
+            1,
+            1,
+            0b0001000000000000000000000000000000000000000000000000000000000000,
+            "running",
+            "running",
+            0x1000000000000000,
+            PieceUnicode::get_black_queen(),
+            Player::Black,
+        );
+        let black_king = Piece::new(
+            1,
+            1,
+            0b100000000000000000000000000000000000000000000000000000000000,
+            "running",
+            "running",
+            0x0800000000000000,
+            PieceUnicode::get_black_king(),
+            Player::Black,
+        );
+         
+           self.populate( vec![white_king, white_bishop, white_knight, 
+            white_pawn, white_queen, white_rook, 
+            black_king, black_bishop, black_knight, 
+            black_pawn, black_queen, black_rook]);
+            println!("{}", self);
+    }
     pub fn normal_chessboard(&mut self) {
         let white_pawn = Piece::new(
             1,
@@ -63,7 +192,7 @@ impl BoardGeneration {
         let white_king = Piece::new(
             1,
             1,
-            1,
+            0x0000000000000008,
             "running",
             "running",
             1,
@@ -290,6 +419,32 @@ impl BoardGeneration {
             Command::new("clear").status().unwrap();
         }
     }
+
+    pub fn populate(&mut self, chess_piece: Vec<Piece>) {
+        // This function takes in a vector of chess pieces 
+        self._board = [[None; 8]; 8];
+        for i in chess_piece.iter() {
+            let val = i.decimal_to_string();
+            println!("{}", val);
+            // val.chars().find(|x | x.to_digit(10) == Some(1));
+            let mut indices = val.char_indices();
+            for _ in 0..val.len()+1{
+                // println!("Yep");
+                match indices.next(){
+                    None => {},
+                    Some((a, b)) => {
+                        if b=='1' {
+                            let whole = a/8;
+                            let remain = a%8;
+                            // println!("{}, {}",whole, remain);
+                            self._board[whole][remain] = Some(*i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 /// This `impl Display for BoardGeneration` block is implementing the `Display` trait for the

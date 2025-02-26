@@ -29,9 +29,9 @@ class Scene:
 		self.app.blit(image, image.get_rect())
 
 	def transformScaleKeepRatio(self, image, size):
-	    iwidth, iheight = image.get_size()
-	    scale = min(size[0] / iwidth, size[1] / iheight)
-	    new_size = (round(iwidth * scale), round(iheight * scale))
-	    scaled_image = pygame.transform.smoothscale(image, new_size) 
-	    image_rect = scaled_image.get_rect(center = (size[0] // 2, size[1] // 2))
-	    return scaled_image, image_rect
+		iwidth, iheight = image.get_size()
+		scale = min(size[0] / iwidth, size[1] / iheight)
+		new_size = (round(iwidth * scale), round(iheight * scale))
+		scaled_image = pygame.transform.smoothscale(image, new_size) 
+		image_rect = scaled_image.get_rect(center = (size[0] // 2, size[1] // 2))
+		return scaled_image, image_rect

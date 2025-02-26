@@ -30,7 +30,7 @@ impl Menu {
                     let mut board = BoardGeneration::new();
                     // board.normal_chessboard();
                     // board.game_cycle();
-                    let mut new_game = NewGame{board: & mut board};
+                    let mut new_game = NewGame::new(&mut board);
                     new_game.start();
                 }
                 2 => println!("Option is not avaliable right Now"),

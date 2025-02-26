@@ -10,7 +10,7 @@ pub enum Player {
 
 impl Display for Player {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        if {*self == Player::Black}{
+        if *self == Player::Black{
             write!(f, "Black")
         } else {
             write!(f, "white")
@@ -22,10 +22,10 @@ impl Display for Player {
 pub struct Piece {
     _id: i64,
     _position: i32,
-    _bitwise: i16,
+    pub _bitwise: i128,
     _name: &'static str,
     _image_path: &'static str,
-    _decimal: i32,
+    _hexa: i128,
     _unicode: &'static str,
     pub _color: Player,
 }
@@ -34,10 +34,10 @@ impl Piece {
     pub fn new(
         id: i64,
         position: i32,
-        bitwise: i16,
+        bitwise: i128,
         name: &'static str,
         image_path: &'static str,
-        decimal: i32,
+        decimal: i128,
         unicode: &'static str,
         color: Player
     ) -> Self {
@@ -47,10 +47,24 @@ impl Piece {
             _bitwise: bitwise,
             _name: name,
             _image_path: image_path,
-            _decimal: decimal,
+            _hexa: decimal,
             _unicode: unicode,
             _color: color
         }
+    }
+
+    pub fn decimal_to_string(self) -> String {
+        let mut string = String::new();
+        let mut value = self._bitwise;
+        while value != 0{
+            string += (value % 2).to_string().as_str();
+            value = value / 2;
+        }
+        // println!("{}", string);
+        while string.len() < 64 {
+            string = string + &"0".to_owned();
+        }
+        return string.chars().rev().collect();
     }
 }
 
@@ -64,6 +78,7 @@ pub enum PieceUnicode {}
 
 impl PieceUnicode {
     pub fn get_white_pawn() -> &'static str {
+        // if is_x86_feature_detected!()
         "\u{2659}"
     }
     pub fn get_white_knight() -> &'static str {
