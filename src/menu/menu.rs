@@ -13,15 +13,17 @@ impl Menu {
         println!("**   Welcome to Magnus  **");
         println!("**************************\n\n");
         loop {
-            println!("**************************");
-            println!("** Menu                 **");
-            println!("** 1. Start New Game    **");
-            println!("** 2. Load Saved Game   **");
-            println!("** 3. LeaderBoard       **");
-            println!("** 4. Settings          **");
-            println!("** 5. Help              **");
-            println!("** 6. Exit              **");
-            println!("**************************\n");
+            let start = "
+            **************************
+            ** Menu                 **
+            ** 1. Start New Game    **
+            ** 2. Load Saved Game   **
+            ** 3. LeaderBoard       **
+            ** 4. Settings          **
+            ** 5. Help              **
+            ** 6. Exit              **
+            **************************\n";
+            println!("{}", start);
             let mut number = String::new();
             io::stdin().read_line(&mut number).expect("Failed to read line");
             let x: i32 = number.trim().parse().expect("Please type a number!");

@@ -21,251 +21,284 @@ impl BoardGeneration {
     }
 
     pub fn new_normal_chessboard(&mut self) {
-        let white_pawn = Piece::new(
+        let mut white_pawn = Piece::new(
             1,
             1,
             0b1111111100000000,
             "white pawn",
+            "P",
             "running",
             0x000000000000ff00,
             PieceUnicode::get_white_pawn(),
             Player::White,
         );
-        let white_knight = Piece::new(
+        let mut white_knight = Piece::new(
             1,
             1,
             0b1000010,
             "running",
+            "N",
             "running",
             0x0000000000000042,
             PieceUnicode::get_white_knight(),
             Player::White,
         );
-        let white_bishop = Piece::new(
+        let mut white_bishop = Piece::new(
             1,
             1,
             0b100100,
             "running",
+            "B",
             "running",
             0x0000000000000024,
             PieceUnicode::get_white_bishop(),
             Player::White,
         );
-        let white_rook = Piece::new(
+        let mut white_rook = Piece::new(
             1,
             1,
             0b10000001,
             "running",
+            "R",
             "running",
             0x0000000000000081,
             PieceUnicode::get_white_rook(),
             Player::White,
         );
-        let white_king = Piece::new(
+        let mut white_king = Piece::new(
             1,
             1,
             0b1000,
             "running",
+            "K",
             "running",
             0x0000000000000008,
             PieceUnicode::get_white_king(),
             Player::White,
         );
-        let white_queen = Piece::new(
+        let mut white_queen = Piece::new(
             1,
             1,
             0b0000000000000000000000000000000000000000000000000000000000010000,
             "running",
+            "Q",
             "running",
             0x0000000000000010,
             PieceUnicode::get_white_queen(),
             Player::White,
         );
-        let black_pawn = Piece::new(
+        let mut black_pawn = Piece::new(
             1,
             1,
             0b11111111000000000000000000000000000000000000000000000000,
             "running",
+            "p",
             "running",
             0x00ff000000000000,
             PieceUnicode::get_black_pawn(),
             Player::Black,
         );
-        let black_knight = Piece::new(
+        let mut black_knight = Piece::new(
             1,
             1,
             0b100001000000000000000000000000000000000000000000000000000000000,
             "running",
+            "n",
             "running",
             0x4200000000000000,
             PieceUnicode::get_black_knight(),
             Player::Black,
         );
-        let black_bishop = Piece::new(
+        let mut black_bishop = Piece::new(
             1,
             1,
             0b10010000000000000000000000000000000000000000000000000000000000,
             "running",
+            "b",
             "running",
             0x2400000000000000,
             PieceUnicode::get_black_bishop(),
             Player::Black,
         );
-        let black_rook = Piece::new(
+        let mut black_rook = Piece::new(
             1,
             1,
             0b1000000100000000000000000000000000000000000000000000000000000000,
             "running",
+            "r",
             "running",
             0x8100000000000000,
             PieceUnicode::get_black_rook(),
             Player::Black,
         );
-        let black_queen = Piece::new(
+        let mut black_queen = Piece::new(
             1,
             1,
             0b0001000000000000000000000000000000000000000000000000000000000000,
             "running",
+            "q",
             "running",
             0x1000000000000000,
             PieceUnicode::get_black_queen(),
             Player::Black,
         );
-        let black_king = Piece::new(
+        let mut black_king = Piece::new(
             1,
             1,
             0b100000000000000000000000000000000000000000000000000000000000,
             "running",
+            "k",
             "running",
             0x0800000000000000,
             PieceUnicode::get_black_king(),
             Player::Black,
         );
-         
-           self.populate( vec![white_king, white_bishop, white_knight, 
-            white_pawn, white_queen, white_rook, 
-            black_king, black_bishop, black_knight, 
-            black_pawn, black_queen, black_rook]);
-            println!("{}", self);
+        // println!("{}", (length as usize).reverse_bits() );
+        let white_piece = (white_bishop | white_king) | (white_knight | white_pawn) | (white_queen | white_rook);
+        let black_piece = (black_bishop | black_king) | (black_knight | black_pawn) | (black_queen | black_rook);
+        let occupied = white_piece | black_piece;
+        let empty= !occupied;
+        // println!("{}", white_pieces)
+        black_pawn.pawn_move(empty, 2);
+        white_pawn.pawn_move(empty, 2);
+        black_pawn.pawn_attack(white_piece);
+        // white_pawn.pawn_attack(black_piece);
+        self.populate( vec![white_king, white_bishop, white_knight, 
+        white_pawn, white_queen, white_rook, 
+        black_king, black_bishop, black_knight, 
+        black_pawn, black_queen, black_rook]);
+        println!("{}", self);
     }
     pub fn normal_chessboard(&mut self) {
-        let white_pawn = Piece::new(
+        let mut white_pawn = Piece::new(
             1,
             1,
-            1,
+            0b1111111100000000,
+            "white pawn",
+            "P",
             "running",
-            "running",
-            1,
+            0x000000000000ff00,
             PieceUnicode::get_white_pawn(),
             Player::White,
         );
-        let white_knight = Piece::new(
+        let mut white_knight = Piece::new(
             1,
             1,
-            1,
+            0b1000010,
             "running",
+            "N",
             "running",
-            1,
+            0x0000000000000042,
             PieceUnicode::get_white_knight(),
             Player::White,
         );
-        let white_bishop = Piece::new(
+        let mut white_bishop = Piece::new(
             1,
             1,
-            1,
+            0b100100,
             "running",
+            "B",
             "running",
-            1,
+            0x0000000000000024,
             PieceUnicode::get_white_bishop(),
             Player::White,
         );
-        let white_rook = Piece::new(
+        let mut white_rook = Piece::new(
             1,
             1,
-            1,
+            0b10000001,
             "running",
+            "R",
             "running",
-            1,
+            0x0000000000000081,
             PieceUnicode::get_white_rook(),
             Player::White,
         );
-        let white_king = Piece::new(
+        let mut white_king = Piece::new(
             1,
             1,
+            0b1000,
+            "running",
+            "K",
+            "running",
             0x0000000000000008,
-            "running",
-            "running",
-            1,
             PieceUnicode::get_white_king(),
             Player::White,
         );
-        let white_queen = Piece::new(
+        let mut white_queen = Piece::new(
             1,
             1,
-            1,
+            0b0000000000000000000000000000000000000000000000000000000000010000,
             "running",
+            "Q",
             "running",
-            1,
+            0x0000000000000010,
             PieceUnicode::get_white_queen(),
             Player::White,
         );
-        let black_pawn = Piece::new(
+        let mut black_pawn = Piece::new(
             1,
             1,
-            1,
+            0b11111111000000000000000000000000000000000000000000000000,
             "running",
+            "p",
             "running",
-            1,
+            0x00ff000000000000,
             PieceUnicode::get_black_pawn(),
             Player::Black,
         );
-        let black_knight = Piece::new(
+        let mut black_knight = Piece::new(
             1,
             1,
-            1,
+            0b100001000000000000000000000000000000000000000000000000000000000,
             "running",
+            "n",
             "running",
-            1,
+            0x4200000000000000,
             PieceUnicode::get_black_knight(),
             Player::Black,
         );
-        let black_bishop = Piece::new(
+        let mut black_bishop = Piece::new(
             1,
             1,
-            1,
+            0b10010000000000000000000000000000000000000000000000000000000000,
             "running",
+            "b",
             "running",
-            1,
+            0x2400000000000000,
             PieceUnicode::get_black_bishop(),
             Player::Black,
         );
-        let black_rook = Piece::new(
+        let mut black_rook = Piece::new(
             1,
             1,
-            1,
+            0b1000000100000000000000000000000000000000000000000000000000000000,
             "running",
+            "r",
             "running",
-            1,
+            0x8100000000000000,
             PieceUnicode::get_black_rook(),
             Player::Black,
         );
-        let black_queen = Piece::new(
+        let mut black_queen = Piece::new(
             1,
             1,
-            1,
+            0b0001000000000000000000000000000000000000000000000000000000000000,
             "running",
+            "q",
             "running",
-            1,
+            0x1000000000000000,
             PieceUnicode::get_black_queen(),
             Player::Black,
         );
-        let black_king = Piece::new(
+        let mut black_king = Piece::new(
             1,
             1,
-            1,
+            0b100000000000000000000000000000000000000000000000000000000000,
             "running",
+            "k",
             "running",
-            1,
+            0x0800000000000000,
             PieceUnicode::get_black_king(),
             Player::Black,
         );
@@ -409,11 +442,11 @@ impl BoardGeneration {
             }
         } else {
             println!("The correct play to play is the {} player", &self._current);
-        }
+        } 
     }
 
     pub fn clear_screen(&self,) {
-        if cfg!(target_os="windows") {
+        if cfg!(windows) {
             Command::new("cls").status().unwrap();
         } else {
             Command::new("clear").status().unwrap();
@@ -425,7 +458,7 @@ impl BoardGeneration {
         self._board = [[None; 8]; 8];
         for i in chess_piece.iter() {
             let val = i.decimal_to_string();
-            println!("{}", val);
+            // println!("{}", val);
             // val.chars().find(|x | x.to_digit(10) == Some(1));
             let mut indices = val.char_indices();
             for _ in 0..val.len()+1{
