@@ -23,15 +23,15 @@ PyFish is a chess engine that initially began development in Python but has sinc
     ```
 This command should display a basic chess board in your command-line interface.
 
-## Contributing (Not Yet Open - If Applicable)
+## Contributing
 
-**If you are not yet accepting contributions:**
+<!-- **If you are not yet accepting contributions:** -->
 
 > We are not currently accepting external contributions as the project is in its early stages. However, we appreciate your interest and will announce when we are ready for community involvement.
 
-**If you plan to accept contributions in the future:**
+<!-- **If you plan to accept contributions in the future:**
 
-> While the project is under heavy development, we plan to open it up for community contributions in the future. We will provide clear guidelines and instructions when we reach that stage.
+> While the project is under heavy development, we plan to open it up for community contributions in the future. We will provide clear guidelines and instructions when we reach that stage. -->
 
 ## Support
 
