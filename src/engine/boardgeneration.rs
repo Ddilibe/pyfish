@@ -352,7 +352,7 @@ impl BoardGeneration {
                 continue;
             }
 
-            if all_two_chars && words.len() == 3 && words[1] == "TO" {
+            if all_two_chars && wordsAD.len() == 3 && words[1] == "TO" {
                 if self.all_pieces().contains(&words[0].to_string())
                     && self.all_pieces().contains(&words[2].to_string())
                 {
