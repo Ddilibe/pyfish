@@ -1,36 +1,87 @@
-
-
-mod piece;
 mod engine;
 mod menu;
+mod piece;
 
+use engine::game_state::GameState;
+use std::io::{self, Write};
+
+#[allow(unused_imports, dead_code)]
+use engine::boardgeneration::BoardGeneration;
+#[allow(unused_imports, dead_code)]
+use engine::constants::{FILE_A, FILE_H, RANK1, RANK8};
+#[allow(unused_imports, dead_code)]
+use menu::menu::Menu;
 #[allow(unused_imports, dead_code)]
 use piece::piece::Piece;
 #[allow(unused_imports, dead_code)]
 use piece::piece::PieceUnicode;
-#[allow(unused_imports, dead_code)]
-use engine::boardgeneration::BoardGeneration;
-use menu::menu::Menu;
-use engine::constants::{
-    RANK1, RANK8, FILE_A, FILE_H
-};
-
 
 fn main() {
-    // println!("{}",RANK1);
-    // let new_piece = Piece::new(
-    //     1, 1, 1, "running", "running",1, PieceUnicode::get_black_bishop()
-    // );
-    // let sparkle_heart = vec![240, 159, 146, 150];
-    // let sparkle_heart = String::from_utf8(sparkle_heart).unwrap();
-    // println!("{}", 1 << 8);
-    let mut board = BoardGeneration::new();
-    board.new_normal_chessboard();
-    // board.normal_chessboard();
-    // board.game_cycle();0
-    // println!("{}", new_piece);
-    // let value = 0x00AB00000;
-    // println!("{}", value | value);
-    // let m = Menu();
-    // m.start();
+    let mut game = GameState::new();
+    println!("Welcome to Crab Chess!");
+    println!("{}", game.board);
+
+    loop {
+        // Print current game state
+        println!(
+            "\nMove {}, {} to play",
+            game.move_count, game.current_player
+        );
+
+        if game.status != engine::game_state::GameStatus::InProgress {
+            match game.status {
+                engine::game_state::GameStatus::Check => println!("Check!"),
+                engine::game_state::GameStatus::Checkmate => {
+                    println!(
+                        "Checkmate! {} wins!",
+                        if game.current_player == piece::piece::Player::White {
+                            "Black"
+                        } else {
+                            "White"
+                        }
+                    );
+                    break;
+                }
+                engine::game_state::GameStatus::Stalemate => {
+                    println!("Stalemate!");
+                    break;
+                }
+                engine::game_state::GameStatus::Draw => {
+                    println!("Draw!");
+                    break;
+                }
+                _ => {}
+            }
+        }
+
+        // Get move from player
+        print!("Enter move (e.g., 'e2 e4'): ");
+        io::stdout().flush().unwrap();
+
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let input = input.trim();
+
+        if input == "quit" {
+            break;
+        }
+
+        // Parse move
+        let parts: Vec<&str> = input.split_whitespace().collect();
+        if parts.len() != 2 {
+            println!("Invalid move format. Please use format 'e2 e4'");
+            continue;
+        }
+
+        // Try to make the move
+        match game.make_move(parts[0].to_string(), parts[1].to_string()) {
+            Ok(_) => {
+                println!("\n{}", game.board);
+            }
+            Err(e) => {
+                println!("Invalid move: {}", e);
+                continue;
+            }
+        }
+    }
 }

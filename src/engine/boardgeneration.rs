@@ -6,6 +6,7 @@ use std::process::Command;
 use std::thread::sleep;
 use std::{io, time};
 
+#[derive(Clone)]
 pub struct BoardGeneration {
     pub _board: [[Option<Piece>; 8]; 8],
     pub _current: Player,
@@ -163,10 +164,10 @@ impl BoardGeneration {
         white_pawn.pawn_move(empty, 2);
         black_pawn.pawn_attack(white_piece);
         // white_pawn.pawn_attack(black_piece);
-        self.populate( vec![white_king, white_bishop, white_knight, 
-        white_pawn, white_queen, white_rook, 
-        black_king, black_bishop, black_knight, 
-        black_pawn, black_queen, black_rook]);
+        // self.populate( vec![white_king, white_bishop, white_knight, 
+        // white_pawn, white_queen, white_rook, 
+        // black_king, black_bishop, black_knight, 
+        // black_pawn, black_queen, black_rook]);
         println!("{}", self);
     }
     pub fn normal_chessboard(&mut self) {
@@ -352,7 +353,7 @@ impl BoardGeneration {
                 continue;
             }
 
-            if all_two_chars && wordsAD.len() == 3 && words[1] == "TO" {
+            if all_two_chars && words.len() == 3 && words[1] == "TO" {
                 if self.all_pieces().contains(&words[0].to_string())
                     && self.all_pieces().contains(&words[2].to_string())
                 {

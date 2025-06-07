@@ -5,9 +5,11 @@ use std::fmt::Error;
 use std::fmt::Display;
 use std::fmt::Formatter;
 
-use crate::engine::constants::FILE_A;
-use crate::engine::constants::FILE_H;
 // Recently built crates
+use crate::engine::constants::FILE_A;
+use crate::engine::constants::FILE_B;
+use crate::engine::constants::FILE_G;
+use crate::engine::constants::FILE_H;
 use crate::engine::constants::RANK1;
 use crate::engine::constants::RANK8;
 
@@ -33,9 +35,9 @@ pub struct Piece {
     _position: i32,
     pub _bitwise: i128,
     _name: &'static str,
-    _alpha: &'static str,
+    pub _alpha: &'static str,
     _image_path: &'static str,
-    _hexa: u128,
+    pub _hexa: u128,
     _unicode: &'static str,
     pub _color: Player,
 }
@@ -129,7 +131,158 @@ impl Piece {
             }
         }
     }
+
+    pub fn knight_moves(&mut self, empty: u128, opponent_pieces: u128) {
+        assert_eq!(self._alpha.to_lowercase(), "n", "This Chess Piece is not a knight");
+        let position = self._hexa;
+        
+        // Knight move patterns: 8 possible moves
+        let moves = [
+            (position << 17) & !FILE_H,  // Up 2, Right 1
+            (position << 15) & !FILE_A,  // Up 2, Left 1
+            (position << 10) & !FILE_H & !FILE_G,  // Up 1, Right 2
+            (position << 6) & !FILE_A & !FILE_B,   // Up 1, Left 2
+            (position >> 6) & !FILE_H & !FILE_G,   // Down 1, Right 2
+            (position >> 10) & !FILE_A & !FILE_B,  // Down 1, Left 2
+            (position >> 15) & !FILE_H,  // Down 2, Right 1
+            (position >> 17) & !FILE_A   // Down 2, Left 1
+        ];
+
+        // Combine all possible moves and filter by empty squares and opponent pieces
+        self._hexa = moves.iter().fold(0, |acc, &m| acc | m) & (empty | opponent_pieces);
+        self._bitwise = self._hexa as i128;
+    }
+
+    pub fn bishop_moves(&mut self, empty: u128, opponent_pieces: u128) {
+        assert_eq!(self._alpha.to_lowercase(), "b", "This Chess Piece is not a bishop");
+        let mut moves: u128 = 0;
+        let position = self._hexa;
+        
+        // Northeast diagonal
+        let mut pos = position;
+        while pos != 0 && (pos & FILE_H) == 0 {
+            pos = (pos << 9) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+        
+        // Northwest diagonal
+        let mut pos = position;
+        while pos != 0 && (pos & FILE_A) == 0 {
+            pos = (pos << 7) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+        
+        // Southeast diagonal
+        let mut pos = position;
+        while pos != 0 && (pos & FILE_H) == 0 {
+            pos = (pos >> 7) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+        
+        // Southwest diagonal
+        let mut pos = position;
+        while pos != 0 && (pos & FILE_A) == 0 {
+            pos = (pos >> 9) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+
+        self._hexa = moves;
+        self._bitwise = self._hexa as i128;
+    }
+
+    pub fn rook_moves(&mut self, empty: u128, opponent_pieces: u128) {
+        assert_eq!(self._alpha.to_lowercase(), "r", "This Chess Piece is not a rook");
+        let mut moves: u128 = 0;
+        let position = self._hexa;
+        
+        // North
+        let mut pos = position;
+        while pos != 0 {
+            pos = (pos << 8) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+        
+        // South
+        let mut pos = position;
+        while pos != 0 {
+            pos = (pos >> 8) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+        
+        // East
+        let mut pos = position;
+        while pos != 0 && (pos & FILE_H) == 0 {
+            pos = (pos << 1) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+        
+        // West
+        let mut pos = position;
+        while pos != 0 && (pos & FILE_A) == 0 {
+            pos = (pos >> 1) & (empty | opponent_pieces);
+            moves |= pos;
+        }
+
+        self._hexa = moves;
+        self._bitwise = self._hexa as i128;
+    }
+
+    pub fn queen_moves(&mut self, empty: u128, opponent_pieces: u128) {
+        assert_eq!(self._alpha.to_lowercase(), "q", "This Chess Piece is not a queen");
+        // Queen combines rook and bishop moves
+        let position = self._hexa;
+        
+        // First get bishop-like moves
+        self.bishop_moves(empty, opponent_pieces);
+        let bishop_moves = self._hexa;
+        
+        // Reset position
+        self._hexa = position;
+        
+        // Then get rook-like moves
+        self.rook_moves(empty, opponent_pieces);
+        let rook_moves = self._hexa;
+        
+        // Combine both move sets
+        self._hexa = bishop_moves | rook_moves;
+        self._bitwise = self._hexa as i128;
+    }
+
+    pub fn king_moves(&mut self, empty: u128, opponent_pieces: u128) {
+        assert_eq!(self._alpha.to_lowercase(), "k", "This Chess Piece is not a king");
+        let position = self._hexa;
+        
+        // All possible king moves
+        let moves = [
+            (position << 8),  // North
+            (position >> 8),  // South
+            (position << 1) & !FILE_H,  // East
+            (position >> 1) & !FILE_A,  // West
+            (position << 9) & !FILE_H,  // Northeast
+            (position << 7) & !FILE_A,  // Northwest
+            (position >> 7) & !FILE_H,  // Southeast
+            (position >> 9) & !FILE_A   // Southwest
+        ];
+
+        // Combine all possible moves and filter by empty squares and opponent pieces
+        self._hexa = moves.iter().fold(0, |acc, &m| acc | m) & (empty | opponent_pieces);
+        self._bitwise = self._hexa as i128;
+    }
+
+    // Helper method to get all possible moves for any piece
+    pub fn get_moves(&mut self, empty: u128, opponent_pieces: u128) {
+        match self._alpha.to_lowercase().as_str() {
+            "p" => self.pawn_attack(opponent_pieces),
+            "n" => self.knight_moves(empty, opponent_pieces),
+            "b" => self.bishop_moves(empty, opponent_pieces),
+            "r" => self.rook_moves(empty, opponent_pieces),
+            "q" => self.queen_moves(empty, opponent_pieces),
+            "k" => self.king_moves(empty, opponent_pieces),
+            _ => panic!("Unknown piece type")
+        }
+    }
 }
+
 pub enum PieceUnicode {}
 
 impl PieceUnicode {
