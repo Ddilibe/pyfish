@@ -1,41 +1,84 @@
-# PyFish (Currently Crab)
+# Crab Chess Engine 🦀
 
-[![Project Status](https://img.shields.io/badge/Status-Under%20Development-orange.svg)](https://img.shields.io/badge/Status-Under%20Development-orange.svg)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A sophisticated console-based chess engine developed in Rust, designed for interactive gameplay and showcasing robust game logic. This project implements core chess rules, including complex move validation, special moves, and comprehensive game state management.
 
-**Note: This project is under active development and is not yet ready for general use. Expect frequent changes, potential instability, and incomplete features.**
+## Installation
 
-## Overview
+To get the Crab Chess Engine running on your local machine, follow these steps:
 
-PyFish is a chess engine that initially began development in Python but has since transitioned to Rust. The original name, "PyFish," was chosen due to Python's prominence at the project's inception. However, inspired by Rust's reputation for performance and reliability, the development shifted. The project will eventually be renamed "Crab" to reflect this change.
-
-## Getting Started
-
-1. **Clone the repository and navigate to the project directory:**
-   ```bash
-   git clone git@github.com:Ddilibe/pyfish.git
-   cd pyfish
-
-2. Run the program using Cargo:
-    ```Bash
-
-    cargo run
+### Prerequisites
+*   Ensure you have the Rust toolchain installed. If not, you can install `rustup` (the Rust installer) by running:
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
-This command should display a basic chess board in your command-line interface.
+    Follow the on-screen instructions.
 
-## Contributing
+### Clone the Repository
+*   Clone the project repository to your local machine:
+    ```bash
+    git clone git@github.com:Ddilibe/Chess.git
+    cd Chess
+    ```
 
-<!-- **If you are not yet accepting contributions:** -->
+### Build the Project
+*   Navigate into the project directory and build the application. The `--release` flag compiles with optimizations for better performance:
+    ```bash
+    cargo build --release
+    ```
 
-> We are not currently accepting external contributions as the project is in its early stages. However, we appreciate your interest and will announce when we are ready for community involvement.
+## Usage
 
-<!-- **If you plan to accept contributions in the future:**
+Once the project is built, you can run the game directly from your terminal:
 
-> While the project is under heavy development, we plan to open it up for community contributions in the future. We will provide clear guidelines and instructions when we reach that stage. -->
+```bash
+cargo run --release
+```
 
-## Support
+The game will start, displaying the initial chess board.
 
-> Support for this early-stage project is currently limited. Please refer to this README for the most up-to-date information.
+### Interactive Commands:
+*   **Make a move**: Enter moves using algebraic notation (e.g., `e2 e4`). This format specifies the starting square followed by the destination square.
+    ```
+    Enter move (e.g., 'e2 e4') or 'quit' to exit: e2 e4
+    ```
+*   **Select a piece**: To view information about a piece on a specific square, enter only the square's algebraic notation (e.g., `g1`).
+    ```
+    Enter move (e.g., 'e2 e4') or 'quit' to exit: g1
+    ```
+*   **Pawn Promotion**: If a pawn reaches the opposite end of the board, you will be prompted to choose a promotion piece (Queen, Rook, Bishop, or Knight) by entering its initial letter (e.g., `q` for Queen).
+*   **Quit Game**: Type `quit` and press Enter to exit the game at any time.
 
+## Features
 
-**Thank you for your interest in PyFish! We are excited about its potential and appreciate your patience as we continue to build it.**
+*   **Standard Chess Rules**: Full implementation of all piece movements (Pawn, Knight, Bishop, Rook, Queen, King).
+*   **Advanced Move Validation**: Ensures all moves are legal according to chess rules, including checks for king safety.
+*   **Special Moves**:
+    *   **Pawn Promotion**: Automatically triggers when a pawn reaches the 1st/8th rank, allowing the player to choose a new piece.
+    *   **En Passant**: Correctly handles en passant captures based on the previous move.
+*   **Game State Management**: Tracks key game information such as the current player, move count, and game status (InProgress, Check, Checkmate, Stalemate, Draw).
+*   **Check and Checkmate Detection**: Accurately identifies when a king is in check and determines checkmate conditions.
+*   **Stalemate and Draw Detection**: Logic to identify stalemate positions and declare draws.
+*   **Interactive Console Interface**: A clean, text-based interface for inputting moves and visualizing the board.
+
+## Technologies Used
+
+| Technology | Description                                 |
+| :--------- | :------------------------------------------ |
+| **Rust**   | Core programming language                   |
+| `bitflags` | Macro to generate `bitflags!` structs       |
+| `lazy_static` | For lazily initialized static data         |
+| `std::io`  | Input/Output operations for console interaction |
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for full details.
+
+## Author Info
+
+*   **Dilibe Fidelugwuowo**
+    *   Email: Franklinfidelugwuowo@gmail.com
+    *   LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourusername)
+    *   Twitter: [Your Twitter Profile](https://twitter.com/yourusername)
+    *   Portfolio: [Your Personal Website](https://yourportfolio.com)
+
+[![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://www.npmjs.com/package/dokugen)
