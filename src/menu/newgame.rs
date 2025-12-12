@@ -23,7 +23,7 @@ impl<'a> NewGame<'a> {
         println!("**************************");
         println!("**   Starting New Game  **");
         println!("**************************\n\n");
-        self.board.normal_chessboard();
+        self.board.new_normal_chessboard();
         self.board.game_cycle();
     }
 }

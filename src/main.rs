@@ -28,34 +28,51 @@ fn main() {
             game.move_count, game.current_player
         );
 
-        if game.status != engine::game_state::GameStatus::InProgress {
-            match game.status {
-                engine::game_state::GameStatus::Check => println!("Check!"),
-                engine::game_state::GameStatus::Checkmate => {
-                    println!(
-                        "Checkmate! {} wins!",
-                        if game.current_player == piece::piece::Player::White {
-                            "Black"
-                        } else {
-                            "White"
-                        }
-                    );
-                    break;
-                }
-                engine::game_state::GameStatus::Stalemate => {
-                    println!("Stalemate!");
-                    break;
-                }
-                engine::game_state::GameStatus::Draw => {
-                    println!("Draw!");
-                    break;
-                }
-                _ => {}
+        match game.status {
+            engine::game_state::GameStatus::Check => println!("Check!"),
+            engine::game_state::GameStatus::Checkmate => {
+                println!(
+                    "Checkmate! {} wins!",
+                    if game.current_player == piece::piece::Player::White {
+                        "Black"
+                    } else {
+                        "White"
+                    }
+                );
+                break;
             }
+            engine::game_state::GameStatus::Stalemate => {
+                println!("Stalemate!");
+                break;
+            }
+            engine::game_state::GameStatus::Draw => {
+                println!("Draw!");
+                break;
+            }
+            engine::game_state::GameStatus::AwaitingPromotion => {
+                print!("Choose promotion piece (q/r/b/n): ");
+                io::stdout().flush().unwrap();
+
+                let mut input = String::new();
+                io::stdin().read_line(&mut input).unwrap();
+                let input = input.trim().to_lowercase();
+
+                match game.promote_pawn(input.chars().next().unwrap_or('q')) {
+                    Ok(_) => {
+                        println!("\n{}", game.board);
+                        continue;
+                    }
+                    Err(e) => {
+                        println!("Invalid promotion choice: {}", e);
+                        continue;
+                    }
+                }
+            }
+            engine::game_state::GameStatus::InProgress => {}
         }
 
         // Get move from player
-        print!("Enter move (e.g., 'e2 e4'): ");
+        print!("Enter move (e.g., 'e2 e4') or 'quit' to exit: ");
         io::stdout().flush().unwrap();
 
         let mut input = String::new();
@@ -68,6 +85,11 @@ fn main() {
 
         // Parse move
         let parts: Vec<&str> = input.split_whitespace().collect();
+        if parts.len() == 1 {
+            let p = game.board.select_piece(&parts[0].to_string());
+            game.board.get_single(p);
+            continue;
+        }
         if parts.len() != 2 {
             println!("Invalid move format. Please use format 'e2 e4'");
             continue;
@@ -79,7 +101,8 @@ fn main() {
                 println!("\n{}", game.board);
             }
             Err(e) => {
-                println!("Invalid move: {}", e);
+                println!("Invalid move: {}\n", e);
+                println!("\n{}", game.board);
                 continue;
             }
         }

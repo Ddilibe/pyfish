@@ -17,6 +17,8 @@ pub static FILE_F: u128 = 0x2020202020202020;
 pub static FILE_G: u128 = 0x4040404040404040;
 pub static FILE_H: u128 = 0x8080808080808080;
 
+
+
 // #[macro_export]
 // macro_rules! RANK1 {
 //     () => {

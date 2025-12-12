@@ -1,63 +1,49 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+    
+import os
+import stat
 
-"""
-	Script for running the whole game
-"""
+def delete_python_files_in_subdirectories(parent_directory: str) -> None:
+    
+    if not os.path.exists(parent_directory):
+        print(f"Error: Directory '{parent_directory}' does not exist.")
+        return
+    if not os.path.isdir(parent_directory):
+        print(f"Error: Path '{parent_directory}' is not a directory.")
+        return
 
-from engine.boardgeneration import BoardGeneration
-from piece.knight import Knight
-from piece.bishop import Bishop
-from piece.queen import Queen
-from piece.rook import Rook
-from piece.king import King
-from piece.pawn import Pawn
-from scene import place, dir_path
-import random
-import pygame
-import scene
+    print(f"Starting deletion of .py files in subdirectories of: {parent_directory}")
+    files_deleted_count = 0
+    directories_scanned_count = 0
 
-class App:
-	""" Create a single-window app with multiple Scenes. """
+    for dirpath, _, filenames in os.walk(parent_directory):
+        directories_scanned_count += 1
 
-	def __init__(self):
-		""" initiatize pygame and the application. """
-		pygame.init()
-		self.clock = pygame.time.Clock()
-		App.screen = pygame.display.set_mode((640, 640))
-		App.name = pygame.display.set_caption("Chess 2D Game")
-		App.running = True
-		self.__scene = 0
-		self.white_piece, self.black_piece, color = [], [], "black"
-		path = f"{dir_path}/media/image/image_1/"
+        if dirpath == parent_directory:
+            continue
 
-		self.board = BoardGeneration(False, True)
-		if self.board.choose:
-			self.array = self.board.initiate_normal_chess()
-		else:
-			self.array = self.board.initiate_chess_960()
+        for filename in filenames:
+            if filename.endswith(".py"):
+                file_path: str = os.path.join(dirpath, filename)
+                try:
+                    if not os.access(file_path, os.W_OK):
+                        os.chmod(file_path, stat.S_IWRITE)
+                    os.remove(file_path)
+                    print(f"Deleted: {file_path}")
+                    files_deleted_count += 1
+                except PermissionError:
+                    print(f"Permission denied: Cannot delete '{file_path}'. Check file permissions.")
+                except OSError as e:
+                    print(f"Error deleting '{file_path}': {e}")
+                except Exception as e:
+                    print(f"An unexpected error occurred while deleting '{file_path}': {e}")
 
-	def run(self):
-		"""Run the main event loop."""
-		scen = place.Scene(App.screen)
-		places_pressed = []
-		while App.running:
-			self.clock.tick(40)
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					App.running = False
-				elif event.type == pygame.MOUSEBUTTONDOWN:
-					places_pressed.append(event)
-				elif event.type == pygame.MOUSEBUTTONUP:
-					# print(event)
-					pass
+    print(f"\nDeletion process completed.")
+    print(f"Scanned {directories_scanned_count} directories.")
+    print(f"Successfully deleted {files_deleted_count} Python files.")
 
-			App.screen.fill(pygame.Color('gray'))
-			scen.display_image()
-			for i in self.array:
-				i.display(App.screen)
-			# App.t.draw()
-			pygame.display.update()
 
-		pygame.quit()
-if __name__ == '__main__':
-	App().run()
+if __name__ == "__main__":
+    
+    test_root = "."
+    delete_python_files_in_subdirectories(test_root)
