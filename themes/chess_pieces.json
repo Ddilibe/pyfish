@@ -1,0 +1,288 @@
+{
+    "@white_knight": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/knightW.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@white_pawn": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/pawnW.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@white_rook": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/rookW.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@white_bishop": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/bishopW.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@white_queen": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/queenW.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@white_king": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/kingW.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@black_knight": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/knightW3.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@black_pawn": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/pawnW3.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@black_rook": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/rookW3.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@black_bishop": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/bishopW3.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@black_queen": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/queenW3.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "@black_king": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "#00000000",
+            "active_border": "#00000000",
+            "selected_border": "#00000000",
+            "selected_shadow": "#00000000"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/image/image_17/kingW3.png"
+            }
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "shape": "rectangle",
+            "text_horiz_alignment": "left",
+            "text_vert_alignment": "center",
+            "padding": "5,0,0,0"
+        }
+    },
+    "#light_square": {
+        "colours": {
+            "dark_bg": "#ebecd0"
+        }
+    },
+    "#dark_square": {
+        "colours": {
+            "dark_bg": "#779556"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "label": {
+        "colours": {
+            "normal_text": "green"
+        },
+        "font": {
+            "name": "monospace",
+            "size": "24"
+        }
+    }
+}

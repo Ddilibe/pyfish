@@ -1,0 +1,27 @@
+{
+    "display": {
+        "width": 1000,
+        "height": 800,
+        "fps": 60,
+        "title": "Chess Master 2026"
+    },
+    "board": {
+        "size": 480,
+        "square_size": 60,
+        "offset_x": 100,
+        "offset_y": 50,
+        "light_color": "#ebecd0",
+        "dark_color": "#779556",
+        "highlight_color": "rgba(0, 170, 255, 150)"
+    },
+    "assets": {
+        "theme_path": "theme.json",
+        "font_path": "assets/fonts/Moralana DEMO.otf",
+        "logo_path": "assets/ChatGPT Image Dec 31, 2025, 10_30_52 PM.png",
+        "music_path": "assets/sounds/Pufino - Thoughtful (freetouse.com).mp3"
+    },
+    "effects": {
+        "shake_intensity": 5,
+        "typing_speed": 0.08
+    }
+}

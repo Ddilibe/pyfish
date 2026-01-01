@@ -1,41 +1,80 @@
-# PyFish (Currently Crab)
+# Dirty Chess ♟️
 
-[![Project Status](https://img.shields.io/badge/Status-Under%20Development-orange.svg)](https://img.shields.io/badge/Status-Under%20Development-orange.svg)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<img src="assets/ChatGPT Image Dec 31, 2025, 10_30_52 PM.png" alt="ChatGPT Image" width="50%" height="auto" style="display: block; margin: 0 auto; ">
 
-**Note: This project is under active development and is not yet ready for general use. Expect frequent changes, potential instability, and incomplete features.**
+## Description
+Dirty Chess is a sophisticated, feature-rich desktop chess application built with Python. It leverages the power of the **Pygame** ecosystem and the **Stockfish** engine to provide a professional-grade chess experience. The project features a robust scene-based architecture, dynamic JSON-driven theming, and precise move validation using the `python-chess` library. Whether you are playing against another human or challenging the integrated AI, Dirty Chess offers a clean and responsive interface designed for both casual play and technical analysis.
 
-## Overview
+## Features
+- **Engine Integration**: Support for Stockfish for high-level AI move generation and position analysis.
+- **Dynamic Theming**: Fully customizable UI components, including pieces, boards, and buttons, via external JSON configuration files.
+- **Scene Management**: A structured state-machine approach managing Welcome, Menu, and Gameplay transitions.
+- **Advanced Move Logic**: Complete chess rule enforcement including promotion, castling, and stalemate detection.
+- **Interactive UI**: Real-time move history tracking, informational feedback panels, and sound effects for an immersive experience.
+- **Configuration Management**: Pydantic-validated settings for display, assets, and game board parameters.
 
-PyFish is a chess engine that initially began development in Python but has since transitioned to Rust. The original name, "PyFish," was chosen due to Python's prominence at the project's inception. However, inspired by Rust's reputation for performance and reliability, the development shifted. The project will eventually be renamed "Crab" to reflect this change.
+## Installation
 
-## Getting Started
+Follow these steps to set up the project on your local machine:
 
-1. **Clone the repository and navigate to the project directory:**
-   ```bash
-   git clone git@github.com:Ddilibe/pyfish.git
-   cd pyfish
+- **Clone the Repository**:
+  ```bash
+  git clone git@github.com:Ddilibe/Chess.git
+  cd Chess
+  ```
 
-2. Run the program using Cargo:
-    ```Bash
+- **Environment Setup**:
+  Ensure you have Python 3.12+ installed. It is recommended to use a virtual environment:
+  ```bash
+  python -m venv venv
+  source venv/bin/activate  # On Windows: venv\Scripts\activate
+  ```
 
-    cargo run
-    ```
-This command should display a basic chess board in your command-line interface.
+- **Install Dependencies**:
+  ```bash
+  pip install .
+  ```
+  *Note: The project requires `pygame`, `pygame-gui`, `chess`, and `pydantic`.*
 
-## Contributing
+- **Stockfish Engine**:
+  Ensure the Stockfish binary is placed in the `assets/engine/` directory as referenced in `engine/engine.py`.
 
-<!-- **If you are not yet accepting contributions:** -->
+## Usage
+To launch the application, run the `main.py` file from the root directory:
 
-> We are not currently accepting external contributions as the project is in its early stages. However, we appreciate your interest and will announce when we are ready for community involvement.
+```bash
+python main.py
+```
 
-<!-- **If you plan to accept contributions in the future:**
+### Gameplay Controls
+- **Select Piece**: Left-click on any piece to see valid moves highlighted in blue.
+- **Move**: Click on a highlighted square to execute the move.
+- **Promotion**: A selection window will automatically appear when a pawn reaches the 8th rank.
+- **Reset**: Press `R` after a game concludes to restart.
+- **Menu**: Press `ESC` to return to the main menu at any time.
 
-> While the project is under heavy development, we plan to open it up for community contributions in the future. We will provide clear guidelines and instructions when we reach that stage. -->
+## Technologies Used
 
-## Support
+| Technology | Purpose |
+| :--- | :--- |
+| [Python 3.12](https://www.python.org/) | Core programming language |
+| [Pygame](https://www.pygame.org/) | Graphics rendering and event handling |
+| [Pygame-GUI](https://pygame-gui.readthedocs.io/) | Interactive UI elements and theming |
+| [python-chess](https://python-chess.readthedocs.io/) | Move validation and board logic |
+| [Pydantic](https://docs.pydantic.dev/) | Data validation and settings management |
+| [Stockfish](https://stockfishchess.org/) | Chess engine for AI opponents |
 
-> Support for this early-stage project is currently limited. Please refer to this README for the most up-to-date information.
+## Author Info
+**Dilibe Fidelugwuowo**
+- **Email**: [Franklinfidelugwuowo@gmail.com](mailto:Franklinfidelugwuowo@gmail.com)
+- **GitHub**: [Ddilibe](https://github.com/Ddilibe)
+- **LinkedIn**: [Your Username]
+- **Twitter**: [Your Username]
 
+---
 
-**Thank you for your interest in PyFish! We are excited about its potential and appreciate your patience as we continue to build it.**
+![Python Version](https://img.shields.io/badge/python-3.12-blue)
+![Pygame](https://img.shields.io/badge/UI-Pygame-green)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
+[![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://www.npmjs.com/package/dokugen)

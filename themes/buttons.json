@@ -1,0 +1,25 @@
+{
+    "@start_game": {
+        "colours": {
+            "normal_text": "White",
+            "normal_bg": "#203354"
+        },
+        "misc": {
+            "shape": "rounded_rectangle"
+        }
+    },
+    "@back_button": {
+        "colours": {
+            "normal_text": "White",
+            "normal_bg": "#203354"
+        },
+        "misc": {
+            "shape": "rounded_rectangle"
+        },
+        "images": {
+            "normal_image": {
+                "path": "assets/icons/ic-back_97586.png"
+            }
+        }
+    }
+}

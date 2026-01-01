@@ -1,0 +1,26 @@
+{
+    "@text_box": {
+        "colours": {
+            "normal_text": "#FFFFFF"
+        }
+    },
+    "@title": {
+        "font": {
+            "name": "moralana",
+            "size": "44",
+            "regular_path": "assets/fonts/Moralana DEMO.otf",
+            "bold": "1"
+        },
+        "colours": {
+            "normal_text": "#FFFFFF"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "text_shadow": "1",
+            "text_shadow_size": "2",
+            "text_shadow_offset": "0,0",
+            "text_shadow_color": "#000000"
+        }
+    }
+}
