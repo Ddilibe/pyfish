@@ -1,6 +1,6 @@
 # Dirty Chess ♟️
 
-<img src="assets/ChatGPT Image Dec 31, 2025, 10_30_52 PM.png" alt="ChatGPT Image" width="50%" height="auto" style="display: block; margin: 0 auto; ">
+<img src="assets/ChatGPT Image Dec 31, 2025, 10_30_52 PM.png" alt="Dirty Chess Logo" width="50%" height="auto" style="display: block; margin: 0 auto; ">
 
 ## Description
 Dirty Chess is a sophisticated, feature-rich desktop chess application built with Python. It leverages the power of the **Pygame** ecosystem and the **Stockfish** engine to provide a professional-grade chess experience. The project features a robust scene-based architecture, dynamic JSON-driven theming, and precise move validation using the `python-chess` library. Whether you are playing against another human or challenging the integrated AI, Dirty Chess offers a clean and responsive interface designed for both casual play and technical analysis.

@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+
+import urllib.request
+import zipfile
+import io
+import os
+import platform
+import stat
+
+def setup_stockfish(download_dir="assets/engine"):
+    
+    base_url = "https://github.com/official-stockfish/Stockfish/releases/latest/download/"
+    if platform.system() == "Windows":
+        file_name = "stockfish-windows-x86-64-avx2.zip"
+    else:
+        file_name = "stockfish-ubuntu-x86-64-avx2.tar"
+
+    url = base_url + file_name
+    os.makedirs(download_dir, exist_ok=True)
+    
+    print(f"Downloading Stockfish from {url}...")
+
+    try:
+        with urllib.request.urlopen(url) as response:
+            data = response.read()
+            
+            if file_name.endswith(".zip"):
+                with zipfile.ZipFile(io.BytesIO(data)) as z:
+                    z.extractall(download_dir)
+                    print(f"Stockfish extracted to: {os.path.abspath(download_dir)}")
+                    
+                    for root, dirs, files in os.walk(download_dir):
+                        for f in files:
+                            if f.endswith(".exe"):
+                                return os.path.join(root, f)
+    except Exception as e:
+        print(f"Download failed: {e}")
+        return None
+
+
+engine_path = setup_stockfish()
+print(f"Engine executable found at: {engine_path}")
